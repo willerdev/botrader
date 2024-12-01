@@ -1,0 +1,23 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+}
+
+@layer base {
+  body {
+    @apply bg-primary-light dark:bg-primary-dark text-accent-light dark:text-accent-dark;
+  }
+}
+
+@layer components {
+  .btn-primary {
+    @apply px-4 py-2 rounded-md bg-accent-light dark:bg-accent-dark text-primary-light dark:text-primary-dark hover:opacity-90 transition-opacity;
+  }
+
+  .input-primary {
+    @apply w-full px-3 py-2 border border-gray-300 dark:border-gray-700 rounded-md bg-primary-light dark:bg-primary-dark focus:outline-none focus:ring-1 focus:ring-accent-light dark:focus:ring-accent-dark;
+  }
+}
