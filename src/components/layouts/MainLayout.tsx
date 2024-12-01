@@ -92,7 +92,7 @@ export const MainLayout = () => {
   );
 
   return (
-    <div className="min-h-screen bg-primary-light dark:bg-primary-dark text-accent-light dark:text-accent-dark">
+    <div className="flex flex-col h-screen">
       {/* Desktop Navigation */}
       <nav className="hidden md:block bg-secondary-light dark:bg-secondary-dark shadow-sm">
         <div className="max-w-7xl mx-auto px-4">
@@ -115,13 +115,6 @@ export const MainLayout = () => {
               </button>
             </div>
           </div>
-        </div>
-      </nav>
-
-      {/* Mobile Navigation */}
-      <nav className="fixed bottom-0 left-0 right-0 md:hidden bg-secondary-light dark:bg-secondary-dark border-t border-gray-200 dark:border-gray-800">
-        <div className="grid grid-cols-5 gap-1 px-2 py-3">
-          <NavItems />
         </div>
       </nav>
 
@@ -162,9 +155,18 @@ export const MainLayout = () => {
       )}
 
       {/* Main Content */}
-      <main className="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8 mb-20 md:mb-0">
-        <Outlet />
+      <main className="flex-1 overflow-auto">
+        <div className="max-w-7xl mx-auto h-full">
+          <Outlet />
+        </div>
       </main>
+
+      {/* Mobile Navigation */}
+      <nav className="fixed bottom-0 left-0 right-0 md:hidden bg-secondary-light dark:bg-secondary-dark border-t border-gray-200 dark:border-gray-800">
+        <div className="grid grid-cols-5 gap-1 px-2 py-3">
+          <NavItems />
+        </div>
+      </nav>
     </div>
   );
 };
