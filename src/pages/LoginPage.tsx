@@ -103,21 +103,8 @@ export const LoginPage = () => {
         </button>
 
         <div className="flex flex-col items-center gap-4 text-sm">
-          <Link
-            to="/forgot-password"
-            className="text-indigo-600 dark:text-indigo-400 hover:text-indigo-500 dark:hover:text-indigo-300"
-          >
-            Forgot your password?
-          </Link>
-          <div className="flex items-center gap-2 text-gray-500 dark:text-gray-400">
-            Don't have an account?{' '}
-            <Link
-              to="/signup"
-              className="text-indigo-600 dark:text-indigo-400 hover:text-indigo-500 dark:hover:text-indigo-300 font-medium"
-            >
-              Sign up
-            </Link>
-          </div>
+       
+    
         </div>
       </form>
     </div>
