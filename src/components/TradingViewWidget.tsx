@@ -1,5 +1,11 @@
 import { useEffect, useRef } from 'react';
 
+declare global {
+  interface Window {
+    TradingView: any;
+  }
+}
+
 interface TradingViewWidgetProps {
   symbol: string;
 }
@@ -13,8 +19,8 @@ export const TradingViewWidget = ({ symbol }: TradingViewWidgetProps) => {
     script.src = 'https://s3.tradingview.com/tv.js';
     script.async = true;
     script.onload = () => {
-      if (typeof TradingView !== 'undefined') {
-        new TradingView.widget({
+      if (typeof window.TradingView !== 'undefined') {
+        new window.TradingView.widget({
           symbol: `DERIV:${symbol}`,
           interval: '1',
           timezone: 'Etc/UTC',
