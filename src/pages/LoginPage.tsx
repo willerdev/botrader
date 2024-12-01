@@ -34,15 +34,9 @@ export const LoginPage = () => {
 
   return (
     <div className="min-h-screen flex flex-col items-center justify-center p-4 space-y-10">
-      {/* Logo and Title */}
-      <div className="flex flex-col items-center space-y-4">
-        <div className="flex items-center justify-center w-16 h-16 bg-indigo-100 dark:bg-indigo-900/30 rounded-xl">
-          <Bot className="w-8 h-8 text-indigo-600 dark:text-indigo-400" />
-        </div>
-        <div className="text-center">
-          <h1 className="text-2xl font-bold text-gray-900 dark:text-gray-100">Welcome back</h1>
-          <p className="text-gray-500 dark:text-gray-400 mt-2">Login to your account</p>
-        </div>
+      {/* Logo only */}
+      <div className="flex items-center justify-center w-16 h-16 bg-indigo-100 dark:bg-indigo-900/30 rounded-xl">
+        <Bot className="w-8 h-8 text-indigo-600 dark:text-indigo-400" />
       </div>
 
       {error && (
