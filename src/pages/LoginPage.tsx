@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { supabase } from '../lib/supabase';
+import { Bot, Mail, Lock, ArrowRight } from 'lucide-react';
+import { AuthError } from '@supabase/supabase-js';
 
 export const LoginPage = () => {
   const navigate = useNavigate();
@@ -22,7 +24,8 @@ export const LoginPage = () => {
 
       if (error) throw error;
       navigate('/');
-    } catch (error) {
+    } catch (err) {
+      const error = err as AuthError;
       setError(error.message);
     } finally {
       setLoading(false);
@@ -30,69 +33,93 @@ export const LoginPage = () => {
   };
 
   return (
-    <form className="space-y-6" onSubmit={handleLogin}>
+    <div className="min-h-screen flex flex-col items-center justify-center p-4 space-y-10">
+      {/* Logo and Title */}
+      <div className="flex flex-col items-center space-y-4">
+        <div className="flex items-center justify-center w-16 h-16 bg-indigo-100 dark:bg-indigo-900/30 rounded-xl">
+          <Bot className="w-8 h-8 text-indigo-600 dark:text-indigo-400" />
+        </div>
+        <div className="text-center">
+          <h1 className="text-2xl font-bold text-gray-900 dark:text-gray-100">Welcome back</h1>
+          <p className="text-gray-500 dark:text-gray-400 mt-2">Login to your account</p>
+        </div>
+      </div>
+
       {error && (
-        <div className="bg-red-50 text-red-500 p-3 rounded text-sm">
+        <div className="w-full max-w-sm px-4 py-3 text-sm bg-red-50 dark:bg-red-900/30 border border-red-200 dark:border-red-900/50 text-red-600 dark:text-red-400 rounded-lg">
           {error}
         </div>
       )}
 
-      <div>
-        <label
-          htmlFor="email"
-          className="block text-sm font-medium text-gray-700"
-        >
-          Email address
-        </label>
-        <div className="mt-1">
-          <input
-            id="email"
-            type="email"
-            required
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-          />
-        </div>
-      </div>
+      <form onSubmit={handleLogin} className="w-full max-w-sm space-y-6">
+        <div className="space-y-4">
+          <div>
+            <div className="relative">
+              <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" />
+              <input
+                id="email"
+                type="email"
+                placeholder="Email address"
+                required
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                className="w-full pl-10 pr-4 py-3 bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg focus:ring-2 focus:ring-indigo-500 dark:focus:ring-indigo-400 focus:border-transparent outline-none transition-all"
+              />
+            </div>
+          </div>
 
-      <div>
-        <label
-          htmlFor="password"
-          className="block text-sm font-medium text-gray-700"
-        >
-          Password
-        </label>
-        <div className="mt-1">
-          <input
-            id="password"
-            type="password"
-            required
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-          />
+          <div>
+            <div className="relative">
+              <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" />
+              <input
+                id="password"
+                type="password"
+                placeholder="Password"
+                required
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                className="w-full pl-10 pr-4 py-3 bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg focus:ring-2 focus:ring-indigo-500 dark:focus:ring-indigo-400 focus:border-transparent outline-none transition-all"
+              />
+            </div>
+          </div>
         </div>
-      </div>
 
-      <div>
         <button
           type="submit"
           disabled={loading}
-          className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+          className="w-full flex items-center justify-center gap-2 bg-indigo-600 hover:bg-indigo-700 text-white py-3 px-4 rounded-lg font-medium transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 disabled:opacity-50 disabled:cursor-not-allowed"
         >
-          {loading ? 'Signing in...' : 'Sign in'}
+          {loading ? (
+            <>
+              <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin" />
+              Signing in...
+            </>
+          ) : (
+            <>
+              Sign in
+              <ArrowRight className="w-5 h-5" />
+            </>
+          )}
         </button>
-      </div>
 
-      <div className="text-sm text-center">
-        <Link
-          to="/signup"
-          className="font-medium text-indigo-600 hover:text-indigo-500"
-        >
-          Don't have an account? Sign up
-        </Link>
-      </div>
-    </form>
+        <div className="flex flex-col items-center gap-4 text-sm">
+          <Link
+            to="/forgot-password"
+            className="text-indigo-600 dark:text-indigo-400 hover:text-indigo-500 dark:hover:text-indigo-300"
+          >
+            Forgot your password?
+          </Link>
+          <div className="flex items-center gap-2 text-gray-500 dark:text-gray-400">
+            Don't have an account?{' '}
+            <Link
+              to="/signup"
+              className="text-indigo-600 dark:text-indigo-400 hover:text-indigo-500 dark:hover:text-indigo-300 font-medium"
+            >
+              Sign up
+            </Link>
+          </div>
+        </div>
+      </form>
+    </div>
   );
 };

@@ -62,7 +62,7 @@ export const Settings = ({ userId }: SettingsProps) => {
         setSettings(defaultSettings);
       }
     } catch (err) {
-      setError('Error loading settings: ' + err.message);
+      setError(`Error loading settings: ${err instanceof Error ? err.message : 'Unknown error'}`);
     } finally {
       setIsLoading(false);
     }
@@ -85,7 +85,7 @@ export const Settings = ({ userId }: SettingsProps) => {
 
       setSuccessMessage('Settings saved successfully');
     } catch (err) {
-      setError('Error saving settings: ' + err.message);
+      setError(`Error saving settings: ${err instanceof Error ? err.message : 'Unknown error'}`);
     } finally {
       setIsSaving(false);
     }

@@ -12,10 +12,11 @@ import { AccountLimitsPage } from './pages/AccountLimitsPage.tsx';
 import { LandingPage } from './pages/LandingPage.tsx';
 import { useEffect, useState } from 'react';
 import { supabase } from './lib/supabase';
+import { Session } from '@supabase/supabase-js';
 import './index.css';
 
 function App() {
-  const [session, setSession] = useState(null);
+  const [session, setSession] = useState<Session | null>(null);
 
   useEffect(() => {
     supabase.auth.getSession().then(({ data: { session } }) => {

@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { supabase } from '../lib/supabase';
+import { AuthError } from '@supabase/supabase-js';
 
 export const SignupPage = () => {
   const navigate = useNavigate();
@@ -22,7 +23,8 @@ export const SignupPage = () => {
 
       if (error) throw error;
       navigate('/');
-    } catch (error) {
+    } catch (err) {
+      const error = err as AuthError;
       setError(error.message);
     } finally {
       setLoading(false);

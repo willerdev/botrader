@@ -8,7 +8,7 @@ interface PriceCardProps {
   onClick?: () => void;
 }
 
-export const PriceCard = ({ symbol, displayName, price, previousPrice, onClick }: PriceCardProps) => {
+export const PriceCard = ({ displayName, price, previousPrice, onClick }: PriceCardProps) => {
   const priceChange = previousPrice ? price - previousPrice : 0;
   const isPositive = priceChange >= 0;
 
